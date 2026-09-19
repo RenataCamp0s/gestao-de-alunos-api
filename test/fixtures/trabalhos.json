@@ -1,0 +1,18 @@
+[
+    {
+        "testTitle": "Deve permitir que o aluno entregue um trabalho",
+        "dadosAluno": {
+            "nome": "Juliana Macedo",
+            "email": "juliana.macedo@example.com",
+            "matricula": "2026017",
+            "senha": "654321"
+        },
+        "dadosTrabalho": {
+            "disciplinaId": "disciplina-programacao-web",
+            "titulo": "Trabalho de Conclusão Final",
+            "descricao": "Testes de APIs com Supertest, Mocha e Chai"
+        },
+        "statusCodeEsperado": 201
+
+    }
+]
