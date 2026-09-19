@@ -1,10 +1,7 @@
-name: Testes
+name: Pipeline para executar os testes de gestão de alunos
 
 on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
+    workflow_dispatch:
 
 permissions:
   checks: write
