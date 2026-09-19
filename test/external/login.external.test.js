@@ -1,8 +1,8 @@
 import request from 'supertest';
 import { expect } from 'chai';
 
-describe('POST /login', () => {
-    it('should return 200 and a token for valid credentials', async () => {
+describe('POST /login com servidor em execução', () => {
+    it('Deve retornar 200 e um token para credenciais válidas', async () => {
         const response = await request('http://localhost:3000')
             .post('/api/auth/login')
             .set('Content-Type', 'application/json')
@@ -12,7 +12,7 @@ describe('POST /login', () => {
         
         expect(response.status).to.equal(200);
     });
-    it('should return 400 for missing password', async () => {
+    it('Deve retornar 400 para campos ausentes', async () => {
         const response = await request('http://localhost:3000')
             .post('/api/auth/login')
             .set('Content-Type', 'application/json')
@@ -23,7 +23,7 @@ describe('POST /login', () => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal('Os campos "email" e "senha" são obrigatórios.');
     });
-    it('should return 401 for invalid credentials', async () => {
+    it('Deve retornar 401 para credenciais inválidas', async () => {
         const response = await request('http://localhost:3000')
             .post('/api/auth/login')
             .set('Content-Type', 'application/json')

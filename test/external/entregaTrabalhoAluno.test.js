@@ -5,7 +5,7 @@ import { comTokenDeUsuario } from '../helpers/auth.js';
 import testesDeTrabalhos from '../fixtures/trabalhos.json' with { type: 'json'};
 
 
-describe('Entrega de Trabalho do Aluno', () => {
+describe('Teste de Entrega de Trabalho do Aluno: Trabalho Final da Disciplina', () => {
     const removeExistingStudent = async (dadosAluno) => {
         const tokenAdmin = await comTokenDeAdmin();
 

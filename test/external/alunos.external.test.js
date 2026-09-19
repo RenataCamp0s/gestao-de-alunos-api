@@ -2,7 +2,7 @@ import request from 'supertest';
 import { expect } from 'chai';
 import { getToken } from '../helpers/auth.js';
 
-describe('Login', () => {
+describe('Login usando helpers', () => {
 
     let token;
     let studentId;
@@ -22,7 +22,7 @@ describe('Login', () => {
         }
     });
 
-    it('should register a student when provided with valid data', async () => {
+    it('Deve cadastrar um aluno quando fornecidos dados válidos', async () => {
         const registerStudentResponse = await request('http://localhost:3000')
             .post('/api/admin/alunos')
             .set('Content-Type', 'application/json')
@@ -43,7 +43,7 @@ describe('Login', () => {
         expect(registerStudentResponse.body.matricula).to.equal('2026-0002');
 
         });
-    it('should denied register student when student already exists', async () => {
+    it('Deve negar o cadastro de um aluno quando ele já existir', async () => {
 
         //Cadastrar um aluno com a mesma matrícula ou e-mail
         const registerStudentResponse = await request('http://localhost:3000')

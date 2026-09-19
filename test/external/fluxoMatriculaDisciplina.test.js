@@ -34,7 +34,7 @@ describe('Matrícula de Aluno em Disciplina', () => {
         await clearData(alunoId, disciplinaId, adminToken);
     });
 
-        it('should enroll a student in a subject when provided with valid data', async () => {
+        it('Deve matricular um aluno em uma disciplina quando fornecidos dados válidos', async () => {
             //Cadastrar um aluno
             const registerStudentResponse = await api()
                 .post('/api/admin/alunos')

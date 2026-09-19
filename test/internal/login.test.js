@@ -4,8 +4,8 @@ import { expect } from 'chai';
 import * as sinon from 'sinon';
 import authService from '../../src/services/auth.service.js';
 
-describe('POST /login', () => {
-    it('should return 500 when have an internal server error', async () => {
+describe('POST /login usando mocks e app', () => {
+    it('Deve retornar 500 quando houver um erro interno do servidor', async () => {
         const authServiceMock = sinon.stub(authService, 'login');
         authServiceMock.throws(new Error('Erro catastrófico no servidor.')); // Simulate an internal server error
         
@@ -21,7 +21,7 @@ describe('POST /login', () => {
 
         sinon.restore(); // Restore the original method after the test
     });
-    it('should return 200 and a token for valid credentials', async () => {
+    it('Deve retornar 200 e um token para credenciais válidas', async () => {
         const response = await request(app)
             .post('/api/auth/login')
             .set('Content-Type', 'application/json')
@@ -31,7 +31,7 @@ describe('POST /login', () => {
         
         expect(response.status).to.equal(200);
     });
-    it('should return 400 for missing password', async () => {
+    it('Deve retornar 400 para campos ausentes', async () => {
         const response = await request(app)
             .post('/api/auth/login')
             .set('Content-Type', 'application/json')
@@ -42,7 +42,7 @@ describe('POST /login', () => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal('Os campos "email" e "senha" são obrigatórios.');
     });
-    it('should return 401 for invalid credentials', async () => {
+    it('Deve retornar 401 para credenciais inválidas', async () => {
         const response = await request(app)
             .post('/api/auth/login')
             .set('Content-Type', 'application/json')
