@@ -1,10 +1,9 @@
 name: Pipeline para executar os testes de gestão de alunos
 
 on:
-    workflow_dispatch:
-
-permissions:
-  checks: write
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   test:
@@ -37,21 +36,13 @@ jobs:
         run: |
           mkdir -p reports
           npm test -- \
-            --reporter mocha-junit-reporter \
-            --reporter-options mochaFile=reports/mocha-junit.xml
+            --reporter mochawesome \
+            --reporter-options reportDir=reports,reportFilename=mochawesome-report,quiet=false
 
-      - name: Publicar relatório JUnit
+      - name: Publicar relatório Mochawesome
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: relatorio-mocha
-          path: reports/mocha-junit.xml
+          name: relatorio-mochawesome
+          path: reports
           if-no-files-found: error
-
-      - name: Exibir resultados dos testes
-        if: always()
-        uses: dorny/test-reporter@v2
-        with:
-          name: Resultado dos testes Mocha
-          path: reports/mocha-junit.xml
-          reporter: java-junit
