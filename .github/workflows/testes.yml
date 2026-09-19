@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main, master]
 
+permissions:
+  checks: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -20,11 +23,10 @@ jobs:
       - name: Baixar código
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
+          node-version: '24.x'
 
       - name: Instalar dependências
         run: npm ci
@@ -35,8 +37,24 @@ jobs:
           npx wait-on http://localhost:3000
 
       - name: Executar testes
-        run: npm test
+        run: |
+          mkdir -p reports
+          npm test -- \
+            --reporter mocha-junit-reporter \
+            --reporter-options mochaFile=reports/mocha-junit.xml
 
-      - name: Exibir logs da API em caso de falha
-        if: failure()
-        run: cat server.log
+      - name: Publicar relatório JUnit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-mocha
+          path: reports/mocha-junit.xml
+          if-no-files-found: error
+
+      - name: Exibir resultados dos testes
+        if: always()
+        uses: dorny/test-reporter@v2
+        with:
+          name: Resultado dos testes Mocha
+          path: reports/mocha-junit.xml
+          reporter: java-junit
