@@ -1,4 +1,4 @@
-name: Pipeline para executar os testes de gestão de alunos
+name: Testes de API para gestão de alunos
 
 on:
   push:
