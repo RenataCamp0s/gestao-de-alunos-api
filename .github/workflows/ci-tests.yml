@@ -2,7 +2,8 @@ name: Testes de API para gestão de alunos
 
 on:
   push:
-    branches: [main]
+    branches: 
+    - testes-de-api
   workflow_dispatch:
 
 jobs:
